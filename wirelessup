@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ $# -lt 2 ]
+then
+  echo "Usage: $0 <interface>"
+  exit 1
+fi
+/etc/rc2.d/S50NetworkManager stop
+wpa_supplicant -B -i $1 -c /etc/wpa_supplicant.conf
+dhclient $1
+iwconfig $1 rate 11M
